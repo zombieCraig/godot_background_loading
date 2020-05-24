@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/base_scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/Scene/grid.png" type="Texture" id=2]
 [ext_resource path="res://scenes/test_scene/Box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/selection/test_screen_2d.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/selection/Screen.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -25,6 +27,7 @@ extents = Vector3( 1024, 1, 1024 )
 
 [node name="Scene" instance=ExtResource( 1 )]
 enable_locomotion = true
+enable_pointer = true
 
 [node name="PlayerSpawnPoint" parent="." index="0"]
 transform = Transform( -0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, -3, 0, 0 )
@@ -58,3 +61,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.03505, 0 )
 
 [node name="Box04" parent="." index="7" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.684231, 3.42923 )
+
+[node name="Height" type="Spatial" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9565, 0, -9.79365 )
+
+[node name="Screen" parent="Height" index="0" instance=ExtResource( 5 )]
+
+[node name="CanvasLayer" parent="Height/Screen/Viewport" index="0" instance=ExtResource( 4 )]
+[connection signal="load_world" from="Height/Screen/Viewport/CanvasLayer" to="." method="_on_CanvasLayer_load_world"]
+
+[editable path="Height/Screen"]

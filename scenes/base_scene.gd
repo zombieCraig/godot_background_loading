@@ -33,6 +33,9 @@ func init_world(new_player_node : ARVROrigin):
 	set_enable_locomotion(enable_locomotion)
 	set_enable_pointer(enable_pointer)
 	
+	if player_node:
+		$Height.global_transform.origin.y = player_node.get_camera_transform().origin.y
+	
 	# and use our spawn point to set our player position
 	player_node.position_player($PlayerSpawnPoint.global_transform)
 
@@ -40,3 +43,5 @@ func init_world(new_player_node : ARVROrigin):
 func _ready():
 	pass # Replace with function body.
 
+func _on_CanvasLayer_load_world(scene):
+	emit_signal("load_world", scene)
